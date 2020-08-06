@@ -11,6 +11,11 @@ public class FirstClass {
 				+ "fell at the quick hands of the monkeys.");
 		System.out.println("There are frogs in my skull"
 			+ "i ran out of coffeEe");
+		int coffee = 0;
+		int whatIWant = 1000;
+		for (coffee = 0; coffee < whatIWant; coffee ++) {
+			System.out.println("Brewing coffee");
+		}
 	}
 
 }
