@@ -22,7 +22,7 @@ public class LibrarySim {
 		
 		while (true) {
 			Scanner scnr = new Scanner(System.in);
-			System.out.print("Enter a command (list, add, remove, edit, sort, movies, return, quit): ");
+			System.out.print("Enter a command (list, add, burn, edit, sort, movies, return, quit): ");
 			String choose = scnr.nextLine();
 			
 			if (choose.equals("quit")) {
@@ -30,38 +30,29 @@ public class LibrarySim {
 				
 			} else if (choose.equals("list")) {
 				books = readFileBook();
-				int i = 1;
-				for (Book next : books) {
-					System.out.println(i + " )" + next.toString());
-					i++;
-				}
+				printListBook(books);
 				
 			} else if (choose.equals("add")) {
 				Book newBook = customBook(scnr);
 				System.out.println("Adding " + newBook);
 				addABook(newBook);
 				
-			} else if (choose.equals("remove")) {
-				System.out.println("Select a country to delete.");
+			} else if (choose.equals("burn")) {
+				System.out.println("Select a book to burn.");
 				books = readFileBook();
 				int r = scnr.nextInt();
 				books.remove(books.get(r-1));
-				removeTheIsh(books);
+				rewriterBooks(books);
 				scnr.nextLine();
 				
 			} else if (choose.equals("movies")){
 				movies = readFileMovie();
-				for (Movie move : movies) {
-					System.out.println(move.toString());
-				} 
+				printListMovie(movies);
 				
 			} else if (choose.equals("return")) {
 				books = readFileBook();
-				int i = 1;
-				for (Book next : books) {
-					System.out.println(i + " )" + next.toString());
-					i++;
-				}
+				printListBook(books);
+				
 				System.out.println("Choose number of book to return");
 				int returnBook = scnr.nextInt();
 				scnr.nextLine();
@@ -75,12 +66,29 @@ public class LibrarySim {
 		
 	}
 
-		private static Book customBook(Scanner scan) {
+	
+	public static void printListBook(List<Book> books) {
+		int i = 1;
+		for (Book next : books) {
+			System.out.printf("%2d)" + next.toString() + "\n" , i);
+			i++;
+		}
+	}
+	
+	public static void printListMovie(List<Movie> movies) {
+		int i = 1;
+		for (Movie next : movies) {
+			System.out.printf("%2d)" + next.toString() + "\n" , i);
+			i++;
+		}
+	}
+	
+		public static Book customBook(Scanner scan) {
 			String title = Validator.getString(scan, "Enter name of book: ");
-			//int population = Validator.getInt(scan, "Enter population: ");
 			String author = Validator.getString(scan, "Enter name of author: ");
-			
-			return new Book(title, author);
+			boolean status = true;
+			int dueDate = 0;
+			return new Book(title, status, dueDate, author);
 		}
 		
 			public static void addABook(Book book) {
@@ -104,10 +112,9 @@ public class LibrarySim {
 				String author = parts[1];
 				boolean onShelf = Boolean.parseBoolean(parts[2]);
 				int dueDate = Integer.parseInt(parts[3]);
-				Book theBook = new Book(title, author, onShelf, dueDate);
+				Book theBook = new Book(title, onShelf, dueDate, author);
 				Books.add(theBook);
 			}
-			
 			return Books;
 		} catch (IOException e) {
 			System.out.println("Unable to read file.");
@@ -115,6 +122,7 @@ public class LibrarySim {
 		}
 		
 	}
+	
 	
 	public static List<Movie> readFileMovie(){
 		
@@ -129,7 +137,7 @@ public class LibrarySim {
 				boolean onShelf = Boolean.parseBoolean(parts[3]);
 				int dueDate = Integer.parseInt(parts[4]);
 				
-				Movie moovee = new Movie(title, director, runtime, dueDate, onShelf);
+				Movie moovee = new Movie(title, director, runtime , onShelf, dueDate);
 				Movies.add(moovee);
 			}
 			
@@ -145,7 +153,7 @@ public class LibrarySim {
 		String author = Validator.getString(scnr, "Enter an author's name: ");
 		boolean onShelf = Validator.getYesNo(scnr, " ");
 		int dueDate = Validator.getInt(scnr, " ");
-		return new Book(title, author, onShelf, dueDate);
+		return new Book(title, onShelf, dueDate, author);
 	}
 	
 	public static void appendBookToFile(Book thing) {
@@ -159,7 +167,7 @@ public class LibrarySim {
 
 	}
 	
-	private static void removeTheIsh(List<Book> list) {
+	private static void rewriterBooks(List<Book> list) {
 		try (FileWriter fr = new FileWriter("books.txt", false);
 				BufferedWriter br = new BufferedWriter(fr);
 				PrintWriter pr = new PrintWriter(br)) {
