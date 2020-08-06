@@ -35,7 +35,7 @@ public class LibrarySim {
 			} else if (choose.equals("add")) {
 				Book newBook = customBook(scnr);
 				System.out.println("Adding " + newBook);
-				addACountry(newBook);
+				addABook(newBook);
 				
 			} else if (choose.equals("remove")) {
 				System.out.println("Select a country to delete.");
@@ -60,7 +60,7 @@ public class LibrarySim {
 			return new Book(title, author);
 		}
 		
-			public static void addACountry(Book book) {
+			public static void addABook(Book book) {
 				String line= book.toString2();
 				List<String> lines = Collections.singletonList(line);
 				try {
@@ -101,7 +101,10 @@ public class LibrarySim {
 				String title = parts[0];
 				String director = parts[1];
 				int runtime = Integer.parseInt(parts[2]);
-				Movie moovee = new Movie(title, director, runtime);
+				boolean onShelf = Boolean.parseBoolean(parts[3]);
+				int dueDate = Integer.parseInt(parts[4]);
+				
+				Movie moovee = new Movie(title, director, runtime, dueDate, onShelf);
 				Movies.add(moovee);
 			}
 			
