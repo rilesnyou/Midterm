@@ -11,6 +11,10 @@ public Book(String title, String author, boolean status, int dueDate) {
 	this.status = status;
 	
 }
+public Book(String title, String author) {
+	this.title = title;
+	this.author = author;
+}
 public String getTitle() {
 	return title;
 }
