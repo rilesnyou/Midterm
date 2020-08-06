@@ -9,8 +9,8 @@ public class FirstClass {
 				+ "swarm of seemingly unstoppable bugs. But following Kai-Yun’s unifying leadership, they paired up and mowed "
 				+ "down their foes. One-by-one every last pesky bug "
 				+ "fell at the quick hands of the monkeys.");
-		System.out.println("There are frogs in my skull");
-
+		System.out.println("There are frogs in my skull"
+			+ "i ran out of coffeEe");
 	}
 
 }
