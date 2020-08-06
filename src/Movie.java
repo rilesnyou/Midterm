@@ -11,6 +11,10 @@ public class Movie extends Media{
 		
 	}
 	
+	public Movie(String title, String director, int runtime) {
+		
+	}
+	
 	public Movie(String title, String director, int dueDate, int runtime, boolean checkedOut) {
 		this.title=title;
 		this.director=director;
