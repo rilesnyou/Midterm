@@ -41,7 +41,10 @@ public void setDueDate(int dueDate) {
 }
 @Override
 public String toString() {
-	return "Book [title=" + title + ", author=" + author + ", status=" + status + ", dueDate=" + dueDate + "]";
+	String format = String.format("Title: %19s"
+			+ "| Author: %19s"
+			+ "| In Stock? %5b ", title, author, status);		
+	return format;
 }
 public String toString2() {
 	return (title+"~~~"+author);

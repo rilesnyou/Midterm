@@ -13,14 +13,16 @@ import java.util.Scanner;
 
 
 public class LibrarySim {
-	private static Path filePath = Paths.get("books.txt");
+	private static Path filePath = Paths.get("Books.txt");
 	private static Path filePath2 = Paths.get("movies.txt");
 	public static void main(String[] args) {
-		Scanner scnr = new Scanner(System.in);
+		
 		List<Book> books = new ArrayList<>();
+		List<Movie> movies = new ArrayList<>();
 		
 		while (true) {
-			System.out.print("Enter a command (list, add, remove, edit, sort, quit): ");
+			Scanner scnr = new Scanner(System.in);
+			System.out.print("Enter a command (list, add, remove, edit, sort, movies, return, quit): ");
 			String choose = scnr.nextLine();
 			
 			if (choose.equals("quit")) {
@@ -28,8 +30,10 @@ public class LibrarySim {
 				
 			} else if (choose.equals("list")) {
 				books = readFileBook();
+				int i = 1;
 				for (Book next : books) {
-					System.out.println(next.toString());
+					System.out.println(i + " )" + next.toString());
+					i++;
 				}
 				
 			} else if (choose.equals("add")) {
@@ -44,12 +48,31 @@ public class LibrarySim {
 				books.remove(books.get(r-1));
 				removeTheIsh(books);
 				scnr.nextLine();
-			} else {
-				break;
-			}
+				
+			} else if (choose.equals("movies")){
+				movies = readFileMovie();
+				for (Movie move : movies) {
+					System.out.println(move.toString());
+				} 
+				
+			} else if (choose.equals("return")) {
+				books = readFileBook();
+				int i = 1;
+				for (Book next : books) {
+					System.out.println(i + " )" + next.toString());
+					i++;
+				}
+				System.out.println("Choose number of book to return");
+				int returnBook = scnr.nextInt();
+				scnr.nextLine();
+				if (books.get(returnBook-1).isStatus() == true) {
+					System.out.println("It's already here!");
+				}
+				books.get(returnBook-1).setStatus(true);
+				System.out.println("Thank you!");	
+			} 
 		}
 		
-
 	}
 
 		private static Book customBook(Scanner scan) {
@@ -79,7 +102,9 @@ public class LibrarySim {
 				String[] parts = line.split("~~~");
 				String title = parts[0];
 				String author = parts[1];
-				Book theBook = new Book(title, author);
+				boolean onShelf = Boolean.parseBoolean(parts[2]);
+				int dueDate = Integer.parseInt(parts[3]);
+				Book theBook = new Book(title, author, onShelf, dueDate);
 				Books.add(theBook);
 			}
 			
