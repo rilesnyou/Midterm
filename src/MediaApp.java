@@ -21,7 +21,7 @@ public class MediaApp {
 		while(repeat) { 
 			System.out.printf("Would you rather want to see a movie, or read a book: ");
 			String input = scnr.next();
-			if(input.equalsIgnoreCase("Movie")) {
+			if(input.equalsIgnoreCase("Book")) {
 			System.out.println("What would you like to see?");
 			System.out.println("'all' for every book in the list");
 			System.out.println("'author' for a list of authors");
@@ -48,7 +48,7 @@ public class MediaApp {
 			}
 				
 		}
-			else if(input.equalsIgnoreCase("Book")) {
+			else if(input.equalsIgnoreCase("Movie")) {
 				System.out.println("What would you like to see?");
 				System.out.println("'all' for every movie in the list");
 				System.out.println("'author' for a list of directors");
