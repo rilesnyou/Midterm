@@ -5,17 +5,18 @@ public class Movie extends Media{
 	private String director;
 	private int dueDate;
 	private int runtime;
+	private boolean checkedOut;
 	
 	public Movie() {
 		
 	}
 	
-	public Movie(String title, String director, int dueDate, int runtime) {
+	public Movie(String title, String director, int dueDate, int runtime, boolean checkedOut) {
 		this.title=title;
 		this.director=director;
 		this.dueDate=dueDate;
 		this.runtime=runtime;
-		
+		this.checkedOut=checkedOut;
 	}
 
 	public String getTitle() {
@@ -50,11 +51,21 @@ public class Movie extends Media{
 		this.runtime = runtime;
 	}
 
+	public boolean isCheckedOut() {
+		return checkedOut;
+	}
+
+	public void setCheckedOut(boolean checkedOut) {
+		this.checkedOut = checkedOut;
+	}
+
 	@Override
 	public String toString() {
 		return "Movie [title=" + title + ", director=" + director + ", dueDate=" + dueDate + ", runtime=" + runtime
-				+ "]";
+				+ ", checkedOut=" + checkedOut + "]";
 	}
+
+
 	
 	
 	
