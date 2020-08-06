@@ -125,4 +125,13 @@ public class MediaApp {
 		}
 
 	}
+	public static void appendMovieToFile(Movie thing) {
+		String line1 = thing.getTitle() + "~~~" + thing.getDirector() + "~~~" + thing.getRuntime() + "~~~" + thing.getDueDate();
+		List<String> lines2 = Collections.singletonList(line1);
+		try {
+			Files.write(filePath2, lines2, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			System.out.println("Unable to write to file.");
+		}
+	}
 }
