@@ -39,6 +39,8 @@ public void setDueDate(int dueDate) {
 public String toString() {
 	return "Book [title=" + title + ", author=" + author + ", status=" + status + ", dueDate=" + dueDate + "]";
 }
-
+public String toString2() {
+	return (title+"~~~"+author);
+}
 
 }
