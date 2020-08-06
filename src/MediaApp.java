@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -114,10 +115,13 @@ public class MediaApp {
 	}
 	
 	public static void appendBookToFile(Book thing) {
-		String gotTitle = thing.getTitle();
-		String gotAuthor = thing.getAuthor();
-		boolean gotShelf = thing.getClass();
-		int gotDate = thing.getDueDate();
-		ArrayList<String> gotFile = Collections.singletonList(gotTitle, gotAuthor, gotShelf, gotDate);
+		String line = thing.getTitle() + "~~~" + thing.getAuthor() + "~~~" + thing.isStatus() + "~~~" + thing.getDueDate();
+		List<String> lines = Collections.singletonList(line);
+		try {
+			Files.write(filePath, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			System.out.println("Unable to write to file.");
+		}
+
 	}
 }
