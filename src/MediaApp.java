@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class MediaApp {
 	public static Path filePath = Paths.get("Books.txt");
+	public static Path filePath2 = Paths.get("Movies.txt");
+	
 	public static void main(String[] args) {
 		Scanner scnr = new Scanner(System.in);
 		
@@ -19,50 +21,51 @@ public class MediaApp {
 		while(repeat) { 
 			System.out.printf("Would you rather want to see a movie, or read a book: ");
 			String input = scnr.next();
-			if(input.equals("Movie")) {
-				repeat = false;
+			if(input.equalsIgnoreCase("Movie")) {
 			System.out.println("What would you like to see?");
 			System.out.println("'all' for every book in the list");
 			System.out.println("'author' for a list of authors");
 			System.out.println("'title' for a title keyword");
 			System.out.println("'quit' to quit looking.");
 			String command = scnr.nextLine();
-			if (command.equals("quit")) {
+			if (command.equalsIgnoreCase("quit")) {
 				break;
-			} else if (command.equals("all")) {
+			} else if (command.equalsIgnoreCase("all")) {
 				List<Book> things = readFileBook();
 				int i = 1; 
 				for (Book thing : things) {
 					System.out.println(i++ + ". " + thing);
 				}
-			} else if (command.equals("author")) {
+			} else if (command.equalsIgnoreCase("author")) {
+				List<Book> things = readFileBook();
+				
+				
 				// pull list of authors
-			} else if (command.equals("title")) {
+			} else if (command.equalsIgnoreCase("title")) {
 				//pull book with typed title
 			} else {
 				System.out.println("Invalid command. Please type from the options correctly.");
 			}
 				
 		}
-			else if(input.equals("Book")) {
-				repeat = false;
+			else if(input.equalsIgnoreCase("Book")) {
 				System.out.println("What would you like to see?");
 				System.out.println("'all' for every movie in the list");
 				System.out.println("'author' for a list of directors");
 				System.out.println("'title' for a title keyword");
 				System.out.println("'quit' to quit looking.");
 				String command = scnr.nextLine();
-				if (command.equals("quit")) {
+				if (command.equalsIgnoreCase("quit")) {
 					break;
-				} else if (command.equals("all")) {
+				} else if (command.equalsIgnoreCase("all")) {
 					List<Movie> things = readFileMovie();
 					int i = 1; 
 					for (Movie thing : things) {
 						System.out.println(i++ + ". " + thing);
 					}
-				} else if (command.equals("author")) {
+				} else if (command.equalsIgnoreCase("author")) {
 					// pull list of authors
-				} else if (command.equals("title")) {
+				} else if (command.equalsIgnoreCase("title")) {
 					//pull book with typed title
 				} else {
 					System.out.println("Invalid command. Please type from the options correctly.");
