@@ -18,19 +18,19 @@ import java.util.Scanner;
 public class LibrarySim {
 	private static Path filePath = Paths.get("Books.txt");
 	private static Path filePath2 = Paths.get("movies.txt");
+	private static Date date = new Date();
+	private static SimpleDateFormat formatter = new SimpleDateFormat("MM--dd--yyyy");
+	private static String strDate = formatter.format(date);
 
 	public static void main(String[] args) {
-		Date date = new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		String strDate = formatter.format(date);
-	
+
 
 		List<Book> books = new ArrayList<>();
 		List<Movie> movies = new ArrayList<>();
 
 		while (true) {
 			Scanner scnr = new Scanner(System.in);
-			System.out.print("Enter a command (list, add, burn, edit, sort, movies, return, quit): ");
+			System.out.print("Enter a command (list, add, burn, sort, movies, check out, return, search, quit): ");
 			String choose = scnr.nextLine();
 
 			if (choose.equalsIgnoreCase("quit")) {
@@ -77,6 +77,16 @@ public class LibrarySim {
 				int i = scnr.nextInt()-1;
 				checkOut(books.get(i));
 				rewriterBooks(books);
+				
+			} else if (choose.equalsIgnoreCase("search")) {
+				books = readFileBook();
+				List<String> authors = new ArrayList<>();
+				findAuthors(books);
+				int i = 1;
+				for (String author : authors) {
+					System.out.println(i + ") "+ author);
+				}
+				
 			} else {
 				System.out.println("Invalid command.");
 			}
@@ -85,7 +95,25 @@ public class LibrarySim {
 
 	}
 	
-	public Date getDateBeforeTwoWeeks(Date date) {
+	public static ArrayList<String> findAuthors(List<Book> list){
+		ArrayList<String> authors = new ArrayList<>();
+		int i = 0;
+		for (Book book : list) {
+			authors.add(list.get(i).getAuthor());
+			i++;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for (String s : authors) {
+			sb.append(s);
+			sb.append("\n");
+		}
+		
+		System.out.print(sb.toString());
+		return authors;
+	}
+
+	public static Date twoWeeks(Date date) {
 	    Calendar calendar = Calendar.getInstance();
 	    calendar.setTime(date);
 	    calendar.add(Calendar.DATE, +14); //2 weeks
@@ -107,6 +135,13 @@ public class LibrarySim {
 	public static void checkOut(Book book) {
 		if (book.isStatus() == true) {
 			System.out.println("You selected " + book.getTitle() + ".  Good Choice!");
+			System.out.println("Due date is " + formatter.format(twoWeeks(date)));
+			String[] dater= formatter.format(twoWeeks(date)).split("--");
+			int a = Integer.parseInt(dater[0]);
+			int b = Integer.parseInt(dater[1]);
+			int c = Integer.parseInt(dater[2]);
+			String reDue = (a+""+b+""+c);
+			book.setDueDate(Integer.parseInt(reDue));
 			book.setStatus(false);
 		} else {
 			System.out.println("That book is already checked out.  Sorry!");
