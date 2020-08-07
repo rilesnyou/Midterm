@@ -6,102 +6,148 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Locale;
 import java.util.List;
 import java.util.Scanner;
-
 
 public class LibrarySim {
 	private static Path filePath = Paths.get("Books.txt");
 	private static Path filePath2 = Paths.get("movies.txt");
+
 	public static void main(String[] args) {
-		
+		Date date = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		String strDate = formatter.format(date);
+	
+
 		List<Book> books = new ArrayList<>();
 		List<Movie> movies = new ArrayList<>();
-		
+
 		while (true) {
 			Scanner scnr = new Scanner(System.in);
 			System.out.print("Enter a command (list, add, burn, edit, sort, movies, return, quit): ");
 			String choose = scnr.nextLine();
-			
-			if (choose.equals("quit")) {
+
+			if (choose.equalsIgnoreCase("quit")) {
 				break;
-				
-			} else if (choose.equals("list")) {
+
+			} else if (choose.equalsIgnoreCase("list")) {
 				books = readFileBook();
 				printListBook(books);
-				
-			} else if (choose.equals("add")) {
+
+			} else if (choose.equalsIgnoreCase("add")) {
 				Book newBook = customBook(scnr);
 				System.out.println("Adding " + newBook);
 				addABook(newBook);
-				
-			} else if (choose.equals("burn")) {
+
+			} else if (choose.equalsIgnoreCase("burn")) {
 				System.out.println("Select a book to burn.");
 				books = readFileBook();
 				int r = scnr.nextInt();
-				books.remove(books.get(r-1));
+				books.remove(books.get(r - 1));
 				rewriterBooks(books);
 				scnr.nextLine();
-				
-			} else if (choose.equals("movies")){
+
+			} else if (choose.equalsIgnoreCase("movies")) {
 				movies = readFileMovie();
 				printListMovie(movies);
-				
-			} else if (choose.equals("return")) {
+
+			} else if (choose.equalsIgnoreCase("return")) {
 				books = readFileBook();
 				printListBook(books);
-				
+
 				System.out.println("Choose number of book to return");
 				int returnBook = scnr.nextInt();
 				scnr.nextLine();
-				if (books.get(returnBook-1).isStatus() == true) {
+				if (books.get(returnBook - 1).isStatus() == true) {
 					System.out.println("It's already here!");
 				}
-				books.get(returnBook-1).setStatus(true);
-				System.out.println("Thank you!");	
-			} 
+				books.get(returnBook - 1).setStatus(true);
+				System.out.println("Thank you!");
+
+			} else if (choose.equalsIgnoreCase("check out")) {
+				books = readFileBook();
+				printListBook(books);
+				System.out.println("Select a book to check out");
+				int i = scnr.nextInt()-1;
+				checkOut(books.get(i));
+				rewriterBooks(books);
+			} else {
+				System.out.println("Invalid command.");
+			}
+
 		}
-		
+
+	}
+	
+	public Date getDateBeforeTwoWeeks(Date date) {
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    calendar.add(Calendar.DATE, +14); //2 weeks
+	    return calendar.getTime();
 	}
 
-	
+	public static List<Book> searchByAuthor(List<Book> list, String author) {
+		List<Book> authorList = new ArrayList<>();
+		for (Book book : list) {
+			int i = 0;
+			if (list.get(i).getAuthor().equalsIgnoreCase(author)) {
+				authorList.add(list.get(i));
+			}
+			i++;
+		}
+		return authorList;
+	}
+
+	public static void checkOut(Book book) {
+		if (book.isStatus() == true) {
+			System.out.println("You selected " + book.getTitle() + ".  Good Choice!");
+			book.setStatus(false);
+		} else {
+			System.out.println("That book is already checked out.  Sorry!");
+		}
+
+	}
+
 	public static void printListBook(List<Book> books) {
 		int i = 1;
 		for (Book next : books) {
-			System.out.printf("%2d)" + next.toString() + "\n" , i);
+			System.out.printf("%2d)" + next.toString() + "\n", i);
 			i++;
 		}
 	}
-	
+
 	public static void printListMovie(List<Movie> movies) {
 		int i = 1;
 		for (Movie next : movies) {
-			System.out.printf("%2d)" + next.toString() + "\n" , i);
+			System.out.printf("%2d)" + next.toString() + "\n", i);
 			i++;
 		}
 	}
-	
-		public static Book customBook(Scanner scan) {
-			String title = Validator.getString(scan, "Enter name of book: ");
-			String author = Validator.getString(scan, "Enter name of author: ");
-			boolean status = true;
-			int dueDate = 0;
-			return new Book(title, status, dueDate, author);
+
+	public static Book customBook(Scanner scan) {
+		String title = Validator.getString(scan, "Enter name of book: ");
+		String author = Validator.getString(scan, "Enter name of author: ");
+		boolean status = true;
+		int dueDate = 0;
+		return new Book(title, status, dueDate, author);
+	}
+
+	public static void addABook(Book book) {
+		String line = book.toString2();
+		List<String> lines = Collections.singletonList(line);
+		try {
+			Files.write(filePath, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			System.out.println("Unable to write to file.");
 		}
-		
-			public static void addABook(Book book) {
-				String line= book.toString2();
-				List<String> lines = Collections.singletonList(line);
-				try {
-					Files.write(filePath, lines, StandardOpenOption.CREATE,
-							StandardOpenOption.APPEND);
-				} catch (IOException e) {
-					System.out.println("Unable to write to file.");
-				}	
-		}
-		
+	}
+
 	public static List<Book> readFileBook() {
 		try {
 			List<String> lines = Files.readAllLines(filePath);
@@ -120,12 +166,11 @@ public class LibrarySim {
 			System.out.println("Unable to read file.");
 			return new ArrayList<>();
 		}
-		
+
 	}
-	
-	
-	public static List<Movie> readFileMovie(){
-		
+
+	public static List<Movie> readFileMovie() {
+
 		try {
 			List<String> lines = Files.readAllLines(filePath2);
 			List<Movie> Movies = new ArrayList<>();
@@ -136,18 +181,17 @@ public class LibrarySim {
 				int runtime = Integer.parseInt(parts[2]);
 				boolean onShelf = Boolean.parseBoolean(parts[3]);
 				int dueDate = Integer.parseInt(parts[4]);
-				
-				Movie moovee = new Movie(title, director, runtime , onShelf, dueDate);
+				Movie moovee = new Movie(title, director, runtime, onShelf, dueDate);
 				Movies.add(moovee);
 			}
-			
+
 			return Movies;
 		} catch (IOException e) {
 			System.out.println("Unable to read file.");
 			return new ArrayList<>();
-		}	
+		}
 	}
-	
+
 	private static Book getBook(Scanner scnr) {
 		String title = Validator.getString(scnr, "Enter a book title: ");
 		String author = Validator.getString(scnr, "Enter an author's name: ");
@@ -155,9 +199,10 @@ public class LibrarySim {
 		int dueDate = Validator.getInt(scnr, " ");
 		return new Book(title, onShelf, dueDate, author);
 	}
-	
+
 	public static void appendBookToFile(Book thing) {
-		String line = thing.getTitle() + "~~~" + thing.getAuthor() + "~~~" + thing.isStatus() + "~~~" + thing.getDueDate();
+		String line = thing.getTitle() + "~~~" + thing.getAuthor() + "~~~" + thing.isStatus() + "~~~"
+				+ thing.getDueDate();
 		List<String> lines = Collections.singletonList(line);
 		try {
 			Files.write(filePath, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
@@ -166,7 +211,7 @@ public class LibrarySim {
 		}
 
 	}
-	
+
 	private static void rewriterBooks(List<Book> list) {
 		try (FileWriter fr = new FileWriter("books.txt", false);
 				BufferedWriter br = new BufferedWriter(fr);
