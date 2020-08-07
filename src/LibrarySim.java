@@ -19,7 +19,7 @@ public class LibrarySim {
 	private static Path filePath = Paths.get("Books.txt");
 	private static Path filePath2 = Paths.get("movies.txt");
 	private static Date date = new Date();
-	private static SimpleDateFormat formatter = new SimpleDateFormat("MM--dd--yyyy");
+	private static SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 	private static String strDate = formatter.format(date);
 
 	public static void main(String[] args) {
@@ -136,23 +136,10 @@ public class LibrarySim {
 		List<Book> authorList = new ArrayList<>();
 		int i = 1;
 		for (i = 1; i < list.size() ; i++) {
-			if (list.get(i-1).getAuthor()==author.get(input-1)) {
+			if (list.get(i-1).getAuthor().contains(author.get(input-1))) {
 				authorList.add(list.get(i-1));
 			}
 		}
-		
-		//if (list.contains(author.get(input-1))){
-			
-		//}
-		
-		/*for (Book book : list) {
-			int i = 0;
-			if () {
-				authorList.add(list.get(i));
-			}
-			i++;
-			}
-		*/
 		return authorList;
 	}
 
@@ -160,7 +147,7 @@ public class LibrarySim {
 		if (book.isStatus() == true) {
 			System.out.println("You selected " + book.getTitle() + ".  Good Choice!");
 			System.out.println("Due date is " + formatter.format(twoWeeks(date)));
-			String[] dater= formatter.format(twoWeeks(date)).split("--");
+			String[] dater= formatter.format(twoWeeks(date)).split("-");
 			int a = Integer.parseInt(dater[0]);
 			int b = Integer.parseInt(dater[1]);
 			int c = Integer.parseInt(dater[2]);
@@ -175,8 +162,15 @@ public class LibrarySim {
 
 	public static void printListBook(List<Book> books) {
 		int i = 1;
+		String checkedOut = " Checked Out.";
+		String onShelf = " On Shelf.";
 		for (Book next : books) {
-			System.out.printf("%2d)" + next.toString() + "\n", i);
+		
+			if (!next.isStatus()) {
+				System.out.printf("%2d)" + next.toString() +checkedOut+ "\n", i);
+			} else {
+				System.out.printf("%2d)" + next.toString() + onShelf + "\n", i);
+			}
 			i++;
 		}
 	}

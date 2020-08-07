@@ -1,67 +1,62 @@
 
-public class Book extends Media{
+public class Book extends Media {
 	private String title;
 	private String author;
 	private boolean status;
 	private int dueDate;
-	
-	
-public Book(String title, boolean status, int dueDate, String author) {
-	this.title = title;
-	this.status = status;
-	this.dueDate = dueDate;
-	this.author = author;
-}
 
-public Book(String title, String author) {
-	this.title = title;
-	this.author = author;
-}
+	public Book(String title, boolean status, int dueDate, String author) {
+		this.title = title;
+		this.status = status;
+		this.dueDate = dueDate;
+		this.author = author;
+	}
 
-public String getTitle() {
-	return title;
-}
+	public Book(String title, String author) {
+		this.title = title;
+		this.author = author;
+	}
 
-public void setTitle(String title) {
-	this.title = title;
-}
+	public String getTitle() {
+		return title;
+	}
 
-public String getAuthor() {
-	return author;
-}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-public void setAuthor(String author) {
-	this.author = author;
-}
+	public String getAuthor() {
+		return author;
+	}
 
-public boolean isStatus() {
-	return status;
-}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
-public void setStatus(boolean status) {
-	this.status = status;
-}
+	public boolean isStatus() {
+		return status;
+	}
 
-public int getDueDate() {
-	return dueDate;
-}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
-public void setDueDate(int dueDate) {
-	this.dueDate = dueDate;
-}
+	public int getDueDate() {
+		return dueDate;
+	}
 
-@Override
-public String toString() {
-	String format = String.format("Title: %19s"
-			+ "| Author: %19s"
-			+ "| In Stock? %5b ", title, author, status);		
-	return format;
-}
+	public void setDueDate(int dueDate) {
+		this.dueDate = dueDate;
+	}
 
-public String toString2() {
-	return (title+"~~~"+author+"~~~"+status+"~~~"+dueDate);
-}
+	@Override
+	public String toString() {
+		String format = String.format(" Title: %-19s" + "| Author: %-19s|", title, author);
+		return format;
+	}
 
-
+	public String toString2() {
+		return (title + "~~~" + author + "~~~" + status + "~~~" + dueDate);
+	}
 
 }
