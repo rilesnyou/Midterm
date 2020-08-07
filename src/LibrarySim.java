@@ -29,7 +29,7 @@ public class LibrarySim {
 
 		while (true) {
 			Scanner scnr = new Scanner(System.in);
-			System.out.print("Enter a command (list, add, burn, sort, movies, check out, return, search, quit): ");
+			System.out.print("Enter a command (list, add, burn, sort, movies, check out, return, search, check due date, quit): ");
 			String choose = scnr.nextLine();
 
 			if (choose.equalsIgnoreCase("quit")) {
@@ -177,8 +177,16 @@ public class LibrarySim {
 
 	public static void printListMovie(List<Movie> movies) {
 		int i = 1;
+		String checkedOut = " Checked Out.";
+		String onShelf = " On Shelf.";
 		for (Movie next : movies) {
-			System.out.printf("%2d)" + next.toString() + "\n", i);
+			if (!next.isStatus()) {
+				System.out.printf("%2d)" + next.toString() +checkedOut+ "\n", i);
+			} else {
+				System.out.printf("%2d)" + next.toString() + onShelf + "\n", i);
+			}
+			
+			
 			i++;
 		}
 	}

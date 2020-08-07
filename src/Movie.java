@@ -57,25 +57,22 @@ public class Movie extends Media{
 		this.runtime = runtime;
 	}
 
-	public boolean isCheckedOut() {
+	public boolean isStatus() {
 		return status;
 	}
 
-	public void setCheckedOut(boolean checkedOut) {
+	public void setStatus(boolean checkedOut) {
 		this.status = checkedOut;
 	}
 
 	@Override
 	public String toString() {
-		String format = String.format("Title: %-28s\nDirector: %-15s\nRuntime: %4d\n", title, director, runtime);
-		
+		String format = String.format("Title: %-30s|Director: %-16s|Runtime: %4d|", title, director, runtime);		
 		return format;
 	}
 
 	public String movieToFile() {
 		return (title+"~~~"+director+"~~~"+runtime+"~~~"+status+"~~~"+dueDate);
-	}
-	
-	
+	}	
 	
 }
