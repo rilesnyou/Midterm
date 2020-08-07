@@ -24,7 +24,6 @@ public class LibrarySim {
 
 	public static void main(String[] args) {
 
-
 		List<Book> books = new ArrayList<>();
 		List<Movie> movies = new ArrayList<>();
 
@@ -81,10 +80,19 @@ public class LibrarySim {
 			} else if (choose.equalsIgnoreCase("search")) {
 				books = readFileBook();
 				List<String> authors = new ArrayList<>();
-				findAuthors(books);
+				authors = findAuthors(books);
 				int i = 1;
 				for (String author : authors) {
 					System.out.println(i + ") "+ author);
+					i++;
+				}
+				System.out.println("Select an author from the list: ");
+				List<Book> authorList = new ArrayList<>();
+				int input = scnr.nextInt();
+				authorList = searchByAuthor(authors, books, input);
+				
+				for (Book author : authorList) {
+					System.out.println(author.toString());
 				}
 				
 			} else {
@@ -99,19 +107,23 @@ public class LibrarySim {
 		ArrayList<String> authors = new ArrayList<>();
 		int i = 0;
 		for (Book book : list) {
+			if (authors.contains(list.get(i).getAuthor())){
+			i++;
+			} else {
 			authors.add(list.get(i).getAuthor());
 			i++;
+			}
 		}
-		
 		StringBuilder sb = new StringBuilder();
 		for (String s : authors) {
 			sb.append(s);
 			sb.append("\n");
 		}
-		
-		System.out.print(sb.toString());
+			
+		//System.out.print(sb.toString());
 		return authors;
 	}
+	
 
 	public static Date twoWeeks(Date date) {
 	    Calendar calendar = Calendar.getInstance();
@@ -120,15 +132,27 @@ public class LibrarySim {
 	    return calendar.getTime();
 	}
 
-	public static List<Book> searchByAuthor(List<Book> list, String author) {
+	public static List<Book> searchByAuthor(List<String> author, List<Book> list, int input) {
 		List<Book> authorList = new ArrayList<>();
-		for (Book book : list) {
+		int i = 1;
+		for (i = 1; i < list.size() ; i++) {
+			if (list.get(i-1).getAuthor()==author.get(input-1)) {
+				authorList.add(list.get(i-1));
+			}
+		}
+		
+		//if (list.contains(author.get(input-1))){
+			
+		//}
+		
+		/*for (Book book : list) {
 			int i = 0;
-			if (list.get(i).getAuthor().equalsIgnoreCase(author)) {
+			if () {
 				authorList.add(list.get(i));
 			}
 			i++;
-		}
+			}
+		*/
 		return authorList;
 	}
 
@@ -201,7 +225,6 @@ public class LibrarySim {
 			System.out.println("Unable to read file.");
 			return new ArrayList<>();
 		}
-
 	}
 
 	public static List<Movie> readFileMovie() {
@@ -244,7 +267,6 @@ public class LibrarySim {
 		} catch (IOException e) {
 			System.out.println("Unable to write to file.");
 		}
-
 	}
 
 	private static void rewriterBooks(List<Book> list) {
