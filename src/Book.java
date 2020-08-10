@@ -48,6 +48,6 @@ public class Book extends Media {
 		return format;
 	}
 	public String toString2() {
-		return (title + "~~~" + author + "~~~" + status + "~~~" + dueDate);
+		return (title + "~~" + author + "~~~" + status + "~~~" + dueDate);
 	}
 }
