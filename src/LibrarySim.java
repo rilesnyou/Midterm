@@ -185,7 +185,6 @@ public class LibrarySim extends Media {
 					System.out.println("Invalid Command");
 					i = Validator.getInt(scnr, "Please select a movie from the list.");
 				}
-				scnr.nextLine();
 				checkOutMovie(movies.get(i-1));
 				rewriterMovies(movies);
 			}
@@ -198,8 +197,6 @@ public class LibrarySim extends Media {
 					System.out.println("Invalid Command");
 					returnMovie = Validator.getInt(scnr, "Please select a movie from the list.");
 				}
-				scnr.nextLine();
-				scnr.nextLine();
 				if (movies.get(returnMovie - 1).isStatus() == true) {
 					System.out.println("It's already here!");
 				}
@@ -276,9 +273,10 @@ public class LibrarySim extends Media {
 	
 	public static ArrayList<Book> findTitle(List<Book> list ,String input) {
 		ArrayList<Book> titles = new ArrayList<>();
+		input.toLowerCase();
 		int i = 0;
 		for (Book book : list) {
-			if (list.get(i).getTitle().contains(input)) {
+			if (list.get(i).getTitle().toLowerCase().contains(input)) {
 				titles.add(list.get(i));
 				i++;
 			} else {

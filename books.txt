@@ -1,12 +1,13 @@
-Fight Club~~~Chuck Palahniuk~~~true~~~N/A
-Pygmy~~~Chuck Palahniuk~~~true~~~N/A
-Metamorphosis~~~Franz Kafka~~~true~~~N/A
-The Trial~~~Franz Kafka~~~true~~~N/A
-Moby Dick~~~Herman Melville~~~true~~~N/A
-Catch 22~~~Joseph Heller~~~true~~~N/A
 Cat's Cradle~~~Kurt Vonnegut~~~true~~~N/A
-Sirens of Titan~~~Kurt Vonnegut~~~true~~~N/A
-Slaughterhouse Five~~~Kurt Vonnegut~~~false~~~08-24-2020
-The Prince~~~Niccolo Machiavelli~~~true~~~N/A
+Catch 22~~~Joseph Heller~~~true~~~N/A
+Fight Club~~~Chuck Palahniuk~~~true~~~N/A
 Gravity's Rainbow~~~Thomas Pynchon~~~true~~~N/A
 Inherent Vice~~~Thomas Pynchon~~~true~~~N/A
+Metamorphosis~~~Franz Kafka~~~true~~~N/A
+Moby Dick~~~Herman Melville~~~true~~~N/A
+Pygmy~~~Chuck Palahniuk~~~true~~~N/A
+Sirens of Titan~~~Kurt Vonnegut~~~true~~~N/A
+Slaughterhouse Five~~~Kurt Vonnegut~~~false~~~08-24-2020
+The Hobbit~~~JRR Tolkien~~~false~~~08-24-2020
+The Prince~~~Niccolo Machiavelli~~~true~~~N/A
+The Trial~~~Franz Kafka~~~true~~~N/A
