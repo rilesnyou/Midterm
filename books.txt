@@ -6,7 +6,7 @@ Fight Club~~~Chuck Palahniuk~~~true~~~0
 Pygmy~~~Chuck Palahniuk~~~true~~~0
 The Trial~~~Franz Kafka~~~true~~~0
 Metamorphosis~~~Franz Kafka~~~true~~~0
-Sirens of Titan~~~Kurt Vonnegut~~~false~~~0
+Sirens of Titan~~~Kurt Vonnegut~~~true~~~0
 Cat's Cradle~~~Kurt Vonnegut~~~true~~~0
-Slaughterhouse Five~~~Kurt Vonnegut~~~true~~~0
+Slaughterhouse Five~~~Kurt Vonnegut~~~false~~~08-24-2020
 Moby Dick~~~Herman Melville~~~true~~~0

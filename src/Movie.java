@@ -3,7 +3,7 @@ public class Movie extends Media{
 
 	private String title;
 	private String director;
-	private int dueDate;
+	private String dueDate;
 	private int runtime;
 	private boolean status;
 	
@@ -17,7 +17,7 @@ public class Movie extends Media{
 		this.runtime=runtime;
 	}
 	
-	public Movie(String title, String director, int runtime, boolean status, int dueDate) {
+	public Movie(String title, String director, int runtime, boolean status, String dueDate) {
 		this.title=title;
 		this.director=director;
 		this.dueDate=dueDate;
@@ -41,11 +41,11 @@ public class Movie extends Media{
 		this.director = director;
 	}
 
-	public int getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(int dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -74,5 +74,8 @@ public class Movie extends Media{
 	public String movieToFile() {
 		return (title+"~~~"+director+"~~~"+runtime+"~~~"+status+"~~~"+dueDate);
 	}	
+	
+	
+	
 	
 }

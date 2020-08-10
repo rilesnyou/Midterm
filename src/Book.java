@@ -1,11 +1,13 @@
 
+
+
 public class Book extends Media {
-	private String title;
+	private String title = "";
 	private String author;
 	private boolean status;
-	private int dueDate;
+	private String dueDate;
 
-	public Book(String title, boolean status, int dueDate, String author) {
+	public Book(String title, boolean status, String dueDate, String author) {
 		this.title = title;
 		this.status = status;
 		this.dueDate = dueDate;
@@ -15,6 +17,13 @@ public class Book extends Media {
 	public Book(String title, String author) {
 		this.title = title;
 		this.author = author;
+	}
+	
+	public Book(String title) {
+		this.title = title;
+	}
+	
+	public Book() {
 	}
 
 	public String getTitle() {
@@ -41,11 +50,11 @@ public class Book extends Media {
 		this.status = status;
 	}
 
-	public int getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(int dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 
@@ -58,5 +67,7 @@ public class Book extends Media {
 	public String toString2() {
 		return (title + "~~~" + author + "~~~" + status + "~~~" + dueDate);
 	}
-
+	
+	
+	
 }
