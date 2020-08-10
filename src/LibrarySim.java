@@ -30,7 +30,7 @@ public class LibrarySim extends Media {
 
 			String choose = "";
 			ArrayList<String> options = new ArrayList<>();
-			System.out.println("Welcome to the library! \n" + "How can we help you today? \n");
+			System.out.println("\nWelcome to the library! \n" + "How can we help you today? \n");
 			options.add("List All Books"); // 0
 			options.add("Add A Book"); // 1
 			options.add("Sort Book List"); // 2
@@ -81,6 +81,7 @@ public class LibrarySim extends Media {
 					printListBook(alfalfaBooks);
 					rewriterBooks(alfalfaBooks);
 				}
+				
 			} else if (option1 == 4) {
 				books = readFileBook();
 				List<String> authors = new ArrayList<>();
@@ -92,7 +93,11 @@ public class LibrarySim extends Media {
 				}
 				System.out.println("Select an author from the list: ");
 				List<Book> authorList = new ArrayList<>();
-				int input = scnr.nextInt();
+				int input = Validator.getInt(scnr, "Select a book by its number.");
+				if (input > authors.size()|| i <= 0) {
+					System.out.println("Invalid Command");
+					input = Validator.getInt(scnr, "Please select a number from the list.");
+				}
 				authorList = searchByAuthor(authors, books, input);
 				for (Book author : authorList) {
 					System.out.println(author.toString());
@@ -114,14 +119,22 @@ public class LibrarySim extends Media {
 				books = readFileBook();
 				printListBook(books);
 				System.out.println("Select a book to check out");
-				int i = scnr.nextInt() - 1;
-				checkOut(books.get(i));
+				int i = Validator.getInt(scnr, "Select a book by its number.");
+				if (i > books.size()|| i <= 0) {
+					System.out.println("Invalid Command");
+					i = Validator.getInt(scnr, "Please select a book from the list.");
+				}
+				checkOut(books.get(i - 1));
 				rewriterBooks(books);
 			} else if (option1 == 7) {
 				books = readFileBook();
 				printListBook(books);
 				System.out.println("Choose number of book to return");
-				int returnBook = scnr.nextInt();
+				int returnBook = Validator.getInt(scnr, "Select a book by its number.");
+				if (returnBook > books.size()|| returnBook <= 0) {
+					System.out.println("Invalid Command");
+					returnBook = Validator.getInt(scnr, "Please select a book from the list.");
+				}
 				scnr.nextLine();
 				if (books.get(returnBook - 1).isStatus() == true) {
 					System.out.println("It's already here!");
@@ -133,8 +146,12 @@ public class LibrarySim extends Media {
 			} else if (option1 == 8) {
 				books = readFileBook();
 				printListBook(books);
-				System.out.println("Select a book by its number.");
-				int i = scnr.nextInt();
+				System.out.println();
+				int i = Validator.getInt(scnr, "Select a book by its number.");
+				if (i > books.size()|| i <= 0) {
+					System.out.println("Invalid Command");
+					i = Validator.getInt(scnr, "Please select a book from the list.");
+				}
 				if (books.get(i - 1).isStatus() == true) {
 					System.out.println("This book isn't checked out!");
 				} else {
@@ -143,10 +160,18 @@ public class LibrarySim extends Media {
 			} else if (option1 == 9) {
 				System.out.println("Select a book to burn.");
 				books = readFileBook();
-				int r = scnr.nextInt();
+				printListBook(books);
+				int r = Validator.getInt(scnr, "Please select a book from the list.");
+				if (r > books.size()|| r < 1) {
+					System.out.println("Invalid Command");
+					r = Validator.getInt(scnr, "Please select a book from the list.");
+				}
+				else {
+				
 				books.remove(books.get(r - 1));
 				rewriterBooks(books);
-				scnr.nextLine();
+				
+				}
 			} else if (option1 == 10) {
 				movies = readFileMovie();
 				printListMovie(movies);
@@ -155,15 +180,25 @@ public class LibrarySim extends Media {
 				movies = readFileMovie();
 				printListMovie(movies);
 				System.out.println("Select a movie to check out");
-				int i = scnr.nextInt() - 1;
-				checkOutMovie(movies.get(i));
+				int i = Validator.getInt(scnr, "Select a movie by its number.");
+				if (i > movies.size()|| i <= 0) {
+					System.out.println("Invalid Command");
+					i = Validator.getInt(scnr, "Please select a movie from the list.");
+				}
+				scnr.nextLine();
+				checkOutMovie(movies.get(i-1));
 				rewriterMovies(movies);
 			}
 			else if (option1 == 12) {
 				movies = readFileMovie();
 				printListMovie(movies);
 				System.out.println("Choose number of movie to return");
-				int returnMovie = scnr.nextInt();
+				int returnMovie = Validator.getInt(scnr, "Select a movie by its number.");
+				if (returnMovie > movies.size()|| returnMovie <= 0) {
+					System.out.println("Invalid Command");
+					returnMovie = Validator.getInt(scnr, "Please select a movie from the list.");
+				}
+				scnr.nextLine();
 				scnr.nextLine();
 				if (movies.get(returnMovie - 1).isStatus() == true) {
 					System.out.println("It's already here!");
@@ -418,6 +453,7 @@ public class LibrarySim extends Media {
 			System.out.println("Failed to read file.");
 		}
 	}
+	
 	private static void rewriterMovies(List<Movie> list) {
 		try (FileWriter fr = new FileWriter("movies.txt", false);
 				BufferedWriter br = new BufferedWriter(fr);

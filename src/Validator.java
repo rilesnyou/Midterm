@@ -1,8 +1,10 @@
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Validator {
-	
+
 	public static String getString(Scanner scnr, String prompt) {
 		System.out.print(prompt);
 		return scnr.nextLine();
@@ -14,12 +16,23 @@ public class Validator {
 		while (!scnr.hasNextInt()) {
 			scnr.nextLine(); // <-- clear out the bad input that they already
 								// typed
-			System.out
-					.println("That is not a valid integer. Please try again.");
+			System.out.println("That is not a valid integer. Please try again.");
 			System.out.print(prompt);
 		}
 		int input = scnr.nextInt();
 		scnr.nextLine(); // <-- clear entire line to ready for next input
+		return input;
+	}
+
+	public static int checkIndexSize(int input, List<Book> media, Scanner scnr) {
+		
+		while (input > media.size() || input < 1) {
+			scnr.nextLine();
+			System.out.println("That is not a valid choice.");
+			System.out.print("Please select a number from the list");
+			input = scnr.nextInt();
+		}
+		scnr.nextLine();
 		return input;
 	}
 
@@ -37,7 +50,7 @@ public class Validator {
 	public static double getDouble(Scanner scnr, String prompt) {
 		System.out.print(prompt);
 		while (!scnr.hasNextDouble()) {
-			scnr.nextLine(); 
+			scnr.nextLine();
 			System.out.println("That is not a valid number. Please try again.");
 			System.out.print(prompt);
 		}
@@ -53,14 +66,13 @@ public class Validator {
 		do {
 			System.out.println(prompt);
 			input = scnr.nextLine();
-			isValid = "yes".equalsIgnoreCase(input) ||
-					"no".equalsIgnoreCase(input) || "y".equalsIgnoreCase(input)
+			isValid = "yes".equalsIgnoreCase(input) || "no".equalsIgnoreCase(input) || "y".equalsIgnoreCase(input)
 					|| "n".equalsIgnoreCase(input);
 			if (!isValid) {
 				System.out.println("Invalid response. Enter yes or no.");
 			}
 		} while (!isValid);
-		
+
 		return input.toLowerCase().startsWith("y");
 	}
 
